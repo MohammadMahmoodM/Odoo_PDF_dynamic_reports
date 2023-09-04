@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chenab_club_voucher_chenab_club_voucher,chenab_club_voucher.chenab_club_voucher,model_chenab_club_voucher_chenab_club_voucher,base.group_user,1,1,1,1

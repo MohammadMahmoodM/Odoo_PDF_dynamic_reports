@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="chenab_club_voucher.list">
+      <field name="name">chenab_club_voucher list</field>
+      <field name="model">chenab_club_voucher.chenab_club_voucher</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="chenab_club_voucher.action_window">
+      <field name="name">chenab_club_voucher window</field>
+      <field name="res_model">chenab_club_voucher.chenab_club_voucher</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="chenab_club_voucher.action_server">
+      <field name="name">chenab_club_voucher server</field>
+      <field name="model_id" ref="model_chenab_club_voucher_chenab_club_voucher"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="chenab_club_voucher" id="chenab_club_voucher.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="chenab_club_voucher.menu_1" parent="chenab_club_voucher.menu_root"/>
+    <menuitem name="Menu 2" id="chenab_club_voucher.menu_2" parent="chenab_club_voucher.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="chenab_club_voucher.menu_1_list" parent="chenab_club_voucher.menu_1"
+              action="chenab_club_voucher.action_window"/>
+    <menuitem name="Server to list" id="chenab_club_voucher" parent="chenab_club_voucher.menu_2"
+              action="chenab_club_voucher.action_server"/>
+-->
+  </data>
+</odoo>

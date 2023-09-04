@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <data>
+        <record id="chenab_club_bankvoucher_paperformat_id" model="report.paperformat">
+            <field name="name">chenab_club_bankcoucher.paperformat</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="page_height">148</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">7</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">4</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <template id="chenab_club_voucher.chenab_club_bank_voucher_name_report_id">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <header>
+                                <div class="row">
+                                    <div class="col-3 mb-1">
+                                        <img t-if="env.company.logo" t-att-src="image_data_uri(env.company.logo)"
+                                             style="height: 110px" alt="logo"/>
+                                    </div>
+                                    <div class="col-9 mt-2" style="font-size: 28px;text-align: right">
+                                        <t t-esc="env.company.name"/>
+                                    </div>
+                                </div>
+                            </header>
+                            <style>
+
+                                .table-bordered th,
+                                .table-bordered td {
+                                border: 1px solid black;
+                                padding: 3px;
+                                text-align: center;
+                                }
+                                .border-style{
+                                border: 1px solid black;
+                                text-align: center;
+                                font-size: 18px;
+                                border-radius: 5px;
+                                }
+
+                            </style>
+                            <br/>
+                            <br/>
+
+                            <div class="row" style="margin-left: 4px; margin-right: 4px;">
+                                <div class="col-3 border-style">
+                                    <t t-esc="o.name"/>
+                                </div>
+
+                                <div class="col-1">
+                                </div>
+
+                                <div class="col-5 border-style">
+                                    <t t-esc="o.journal_id.name"/>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-2 border-style">
+                                    <t t-esc="o.date"/>
+                                </div>
+
+                            </div>
+
+                            <div style="border: 1px solid black; padding: 3px; margin: 4px;">
+                                <table class="table-bordered" style="width: 100%; padding: 3px;">
+                                    <tr>
+                                        <th colspan="1">Sr. #</th>
+                                        <th colspan="5">Particulars</th>
+                                        <th colspan="2">Code</th>
+                                        <th colspan="2" style="text-align: right !important">Debit</th>
+                                        <th colspan="2" style="text-align: right !important">Credit</th>
+                                    </tr>
+                                    <t t-set="sr" t-value="1"/>
+                                    <t t-set="debit_sum_" t-value="0"/>
+                                    <t t-set="credit_sum_" t-value="0"/>
+
+
+                                    <t t-set="invoice_line_ids" t-value="o.move_id.line_ids"/>
+                                    <t t-foreach="invoice_line_ids" t-as="l">
+
+                                        <tr>
+                                            <td colspan="1">
+                                                <t t-esc="sr"/>
+                                                <t t-set="sr" t-value="sr+1"/>
+                                            </td>
+                                            <td colspan="5">
+                                                <div>
+                                                    <b>
+                                                        <t t-esc="l.account_id.name"/>
+                                                    </b>
+                                                </div>
+                                                <div>
+                                                    <t t-esc="l.partner_id.name"/>
+                                                </div>
+                                            </td>
+                                            <td colspan="2">
+                                                <t t-esc="o.date"/>
+                                            </td>
+                                            <td colspan="2" style="text-align: right !important">
+                                                <t t-esc="l.debit"/>
+                                                <t t-set="debit_sum_" t-value="debit_sum_+l.debit"/>
+                                            </td>
+                                            <td colspan="2" style="text-align: right !important">
+                                                <t t-esc="l.credit"/>
+                                                <t t-set="credit_sum_" t-value="credit_sum_+l.credit"/>
+                                            </td>
+                                        </tr>
+
+                                    </t>
+
+                                    <tr>
+                                        <th colspan="1">Total</th>
+                                        <th colspan="7"
+                                            style="text-align: left !important;text-transform: capitalize;">
+                                            <t t-esc="o.num2words_sum(debit_sum_)"/>
+                                        </th>
+                                        <th colspan="2" style="text-align: right !important">
+                                            <t t-esc="debit_sum_"/>
+                                        </th>
+                                        <th colspan="2" style="text-align: right !important">
+                                            <t t-esc="credit_sum_"/>
+                                        </th>
+                                    </tr>
+
+                                </table>
+
+                                <div class="row" style="margin: 2px;">
+                                    <t t-esc="time.strftime('%d-%m-%Y %H:%M:%S')"/>
+                                    Rows:
+                                    <t t-esc="sr-1"/>
+                                </div>
+
+                                <div class="row" style="margin-top: 35px; margin-left: 10px;">
+                                    <t t-esc="o.create_uid.name"/>
+                                </div>
+
+                                <div class="row" style="margin: 2px;">
+                                    <div class="col-1" style="width: 300px;"></div>
+                                    <div class="col-3" style="width: 280px; text-align: center;">Manager Accounts</div>
+                                    <div class="col-2" style="width: 300px; text-align: center;">Internal Audit</div>
+                                    <div class="col-3" style="width: 300px; text-align: center;">Honorary Treasurer</div>
+                                    <div class="col-3" style="width: 300px; text-align: center;">Honorary Secretary</div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <report
+                id="chenab_club_bankvoucher_report_id"
+                model="account.payment"
+                report_type="qweb-pdf"
+                string="Voucher Print"
+                name="chenab_club_voucher.chenab_club_bank_voucher_name_report_id"
+                file="chenab_club_voucher.chenab_club_bank_voucher_name_report_id"
+                paperformat="chenab_club_bankvoucher_paperformat_id"
+        />
+    </data>
+</odoo>
