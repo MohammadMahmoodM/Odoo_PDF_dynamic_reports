@@ -1,0 +1,3 @@
+# Odoo_PDF_dynamic_reports
+
+chenab_club_dynamic_data_from_database => https://github.com/MohammadMahmoodM/Odoo_PDF_dynamic_reports/blob/main/1_odoo_14_chenab_club_voucher_print_dynamic_report/1_odoo_14_chenab_club_voucher_print_dynamic_report.pdf
